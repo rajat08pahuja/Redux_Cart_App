@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 function HomePage(props) {
     let { products } = props.Shopping;
-    let { addToCart } = props;
+    let { addToCart, addToProducts } = props;
     return (
         <div style={{ display: "flex" }}>
             {products.map(product => {
@@ -16,6 +16,7 @@ function HomePage(props) {
                         <button
                             onClick={() => {
                                 addToCart();
+                                addToProducts(product);
                             }}
                         >Add To Cart</button>
                     </div>
@@ -33,6 +34,10 @@ const mapDispatchToProps = dispatch => {
     return {
         addToCart: () => {
             return dispatch({ type: "add_to_cart" });
+        },
+
+        addToProducts: (prodObj) => {
+            return dispatch({ type: "change_quantity", payload: { obj: prodObj} })
         }
     }
 }
